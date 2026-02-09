@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0B0820" />
+    <title>مؤسسة الفردوس للطباعة والتوزيع</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/assets/js/quote/quote-ui.js"></script>
+
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- =====================[ SPLASH / LOADER VIP ]================ -->
+    <div class="splash" id="bootSplash" aria-hidden="false">
+      <div class="splash__bg" aria-hidden="true"></div>
+      <div class="splash__card" role="status" aria-label="تحميل الموقع">
+        <div class="splash__logo" aria-hidden="true"></div>
+
+        <div class="splash__txt">
+          <strong>الفردوس</strong>
+          <span>للطباعة والتوزيع</span>
+        </div>
+
+        <div class="splash__bar" aria-hidden="true">
+          <i></i>
+        </div>
+        <div class="splash__hint">جارٍ تجهيز التجربة…</div>
+      </div>
+    </div>
+    <!-- ===================[ /SPLASH / LOADER VIP ]================= -->
+
+    <!-- =====================[ TOP PROGRESS BAR ]================ -->
+    <div class="scrollbar" id="scrollbar"></div>
+    <!-- ===================[ /TOP PROGRESS BAR ]================= -->
+
+    <!-- =====================[ HEADER ]========================== -->
+    <header class="header" id="header">
+      <div class="container header__row">
+        <!-- Brand -->
+        <a class="brand" href="#top" aria-label="الرئيسية">
+          <span class="brand__logo" aria-hidden="true"></span>
+          <span class="brand__txt">
+            <strong>الفردوس</strong>
+            <em>للطباعة والتوزيع</em>
+          </span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="nav" aria-label="القائمة">
+          <a href="#releases">الإصدارات</a>
+          <a href="#videoReleases">إصدارات فيديو</a>
+          <a href="#offers">العروض</a>
+          <a href="#fairs">المعارض</a>
+          <a href="#services">خدماتنا</a>
+
+          <a href="#pricing.html">تسعير /طباعة</a>
+
+          <a href="school.html">الأدوات المدرسية</a>
+          <a href="#contact">تواصل</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="header__actions">
+          <button
+            class="btn btn--ghost"
+            id="themeBtn"
+            type="button"
+            aria-label="تبديل الوضع"
+          >
+            🌗 
+          </button>
+
+         
+          <button
+            class="btn btn--ghost is-hidden"
+            id="adminLogoutBtn"
+            type="button"
+          >
+            خروج الإدارة
+          </button>
+          <span class="badge is-hidden" id="adminBadge">وضع الإدارة</span>
+
+          <button
+            class="iconBtn hamb"
+            id="hambBtn"
+            type="button"
+            aria-label="فتح القائمة"
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div class="container mobileNav is-hidden" id="mobileNav">
+        <a href="#releases">الإصدارات</a>
+        <a href="#videoReleases">إصدارات فيديو</a>
+        <a href="#offers">العروض</a>
+        <a href="#fairs">المعارض</a>
+        <a href="#services">خدماتنا</a>
+
+        <a href="pricing.html">تسعير/طباعة</a>
+
+        <a href="school.html">الأدوات المدرسية</a>
+        <a href="#contact">تواصل</a>
+      </div>
+    </header>
+    <!-- ===================[ /HEADER ]=========================== -->
+
+    <main id="top">
+      <!-- =====================[ HERO ]=========================== -->
+      <div class="hero__content hero__content--media">
+  <figure class="heroMedia" aria-label="صورة تعبّر عن الكتاب وروح الكتب">
+    <img
+      src="assets/banar2.jpg"
+      alt="صورة تعبّر عن الكتاب وروح الكتب"
+      loading="eager"
+      decoding="async"
+    />
+  </figure>
+
+  <div class="hero__cta">
+    <a class="btn btn--primary" href="#releases">استعرض الإصدارات</a>
+    <a class="btn btn--ghost" href="pricing.html">اطلب تسعيراً الآن</a>
+  </div>
+</div>
+
+            <div class="hero__stats">
+              <div class="stat">
+                <strong>إسلامي</strong><span>محتوى أساسي</span>
+              </div>
+              <div class="stat">
+                <strong>طباعة للغير</strong><span>مواصفات دقيقة</span>
+              </div>
+              <div class="stat">
+                <strong>معارض</strong><span>محلية ودولية</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__frame" aria-label="عارض صور">
+            <div class="heroFrame" id="heroFrame">
+              <div
+                class="heroFrame__stage"
+                id="heroStage"
+                aria-live="polite"
+              ></div>
+
+              <div class="heroFrame__controls">
+                <button
+                  class="iconBtn"
+                  id="heroPrev"
+                  type="button"
+                  aria-label="السابق"
+                >
+                  ‹
+                </button>
+                <button
+                  class="iconBtn"
+                  id="heroNext"
+                  type="button"
+                  aria-label="التالي"
+                >
+                  ›
+                </button>
+              </div>
+
+              <div
+                class="heroFrame__dots"
+                id="heroDots"
+                aria-hidden="true"
+              ></div>
+            </div>
+
+            <p class="hint">
+              <!-- الصور لا تُقص افتراضيًا للحفاظ على الإطار كاملًا (يمكن تحويلها
+              Cover من الإعدادات).-->
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- ===================[ /HERO ]=========================== -->
+
+      <!-- =====================[ RELEASES ]======================= -->
+      <section class="section" id="releases">
+        <div class="container">
+          <div class="section__head">
+            <h2>إصدارات مختارة</h2>
+            <p>اضغط على أي إصدار لفتح نافذة تفاصيل.</p>
+          </div>
+          <div class="gridCards" id="booksGrid"></div>
+        </div>
+      </section>
+
+      <!-- =====================[ VIDEO RELEASES ]================== -->
+      <section class="section section--soft" id="videoReleases">
+        <div class="container">
+          <div class="section__head">
+            <h2>إصدارات فيديو (15 ثانية)</h2>
+            <p ></p>
+          </div>
+          <div class="videoGrid" id="videoGrid"></div>
+        </div>
+      </section>
+
+      <!-- =====================[ OFFERS ]========================== -->
+      <section class="section" id="offers">
+        <div class="container">
+          <div class="section__head">
+            <h2>عروض تسويقية</h2>
+            <p>    </p>
+          </div>
+          <div class="offerGrid" id="offerGrid"></div>
+        </div>
+      </section>
+
+      <!-- =====================[ FAIRS VIP ORBIT ]================= -->
+      <section class="section section--soft" id="fairs">
+        <div class="container fairsVIP">
+          <header class="fairsVIP__head">
+            <div class="fairsVIP__title">
+              <h2>مشاركات المعارض</h2>
+              <p>
+                عرض VIP تفاعلي  
+                
+              </p>
+            </div>
+
+            <div
+              class="fairsVIP__seg"
+              role="tablist"
+              aria-label="فلترة المعارض"
+            >
+              <button
+                class="fairsVIP__segBtn is-active"
+                type="button"
+                data-tab="all"
+                role="tab"
+                aria-selected="true"
+              >
+                الكل
+              </button>
+              <button
+                class="fairsVIP__segBtn"
+                type="button"
+                data-tab="local"
+                role="tab"
+                aria-selected="false"
+              >
+                محلية
+              </button>
+              <button
+                class="fairsVIP__segBtn"
+                type="button"
+                data-tab="international"
+                role="tab"
+                aria-selected="false"
+              >
+                دولية
+              </button>
+            </div>
+          </header>
+
+          <div class="fairsVIP__stage" aria-label="Orbit Showcase">
+            <div class="fairsVIP__hud" aria-hidden="true">
+              <div class="fairsVIP__hint">
+                اسحب ⟷ أو استخدم عجلة الماوس للتنقل
+              </div>
+              <div class="fairsVIP__meter">
+                <span class="fairsVIP__meterBar" id="fairsMeter"></span>
+              </div>
+            </div>
+
+            <div
+              class="fairsVIP__orbit"
+              id="fairsOrbit"
+              tabindex="0"
+              aria-label="مدار المعارض (قابل للتحكم)"
+            ></div>
+
+            <aside class="fairsVIP__spot" aria-label="تفاصيل العنصر المختار">
+              <div class="fairsVIP__spotBadge" id="fairsSpotBadge">—</div>
+              <h3 class="fairsVIP__spotTitle" id="fairsSpotTitle">—</h3>
+              <p class="fairsVIP__spotDesc" id="fairsSpotDesc">—</p>
+
+              <div class="fairsVIP__spotActions">
+                <button
+                  class="btn btn--primary"
+                  type="button"
+                  id="fairsOpenBtn"
+                >
+                  عرض
+                </button>
+                <button class="btn btn--ghost" type="button" id="fairsNextBtn">
+                  التالي
+                </button>
+              </div>
+            </aside>
+          </div>
+
+          <div
+            class="fairsVIP__rail"
+            id="fairsRail"
+            aria-label="شريط المعارض"
+          ></div>
+        </div>
+      </section>
+      <!-- ===================[ /FAIRS ]=========================== -->
+
+      <!-- =====================[ SERVICES ]======================== -->
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section__head">
+            <h2>خدماتنا</h2>
+            <p>نشر • طباعة للغير • توزيع • تجهيز معارض</p>
+          </div>
+
+          <div class="serviceGrid">
+            <div class="serviceCard">
+              <h3>النشر والإصدار</h3>
+              <p>إخراج فني وتجهيز للطباعة ومراجعة هوية الإصدار.</p>
+            </div>
+            <div class="serviceCard">
+              <h3>الطباعة للغير</h3>
+              <p>تحديد الورق والتجليد والألوان وفق الكمية والمواصفات.</p>
+            </div>
+            <div class="serviceCard">
+              <h3>التوزيع</h3>
+              <p>خطة توزيع منظمة وتجهيز عروض للمكتبات والجهات.</p>
+            </div>
+            <div class="serviceCard">
+              <h3>المعارض</h3>
+              <p>مشاركات محلية ودولية ضمن باقات واضحة في التسعير.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================[ QUOTE ]=========================== -->
+      
+      <!-- =====================[ CONTACT ]========================= -->
+      <section class="section" id="contact">
+        <div class="container">
+          <div class="section__head">
+            <h2>تواصل</h2>
+            <p>        </p>
+          </div>
+
+          <div class="contactGrid">
+            <div class="contactCard">
+              <h3>العنوان</h3>
+              <p>الإسكندرية — (  الورديان- شارع الامان -محطة ترام خفاجة)</p>
+            </div>
+            <div class="contactCard">
+              <h3>هاتف/واتساب</h3>
+              <p>  01220482504</p>
+            </div>
+            <div class="contactCard">
+              <h3>فيسبوك</h3>
+              <p><a href="https://www.facebook.com/share/1AgnNdhx2d/" target="_blank" rel="noopener"> https://www.facebook.com/share/1AgnNdhx2d/</a></p>
+            </div>
+          </div>
+
+          
+        </div>
+      </section>
+    </main>
+
+    <!-- =====================[ MODALS ]=========================== -->
+    <div class="modal" id="bookModal" aria-hidden="true">
+      <div class="modal__backdrop" data-close-book></div>
+      <div class="modal__panel modal__panel--wide">
+        <div class="modal__head">
+          <h3 id="bookTitle">تفاصيل الإصدار</h3>
+          <button class="iconBtn" data-close-book type="button">✕</button>
+        </div>
+        <div class="modal__body" id="bookBody"></div>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      id="mediaModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="وسائط المعارض"
+    >
+      <div class="modal__backdrop" data-close-media></div>
+      <div class="modal__panel modal__panel--wide">
+        <div class="modal__head">
+          <h3 id="mediaTitle">وسائط المعارض</h3>
+          <button class="iconBtn" data-close-media aria-label="إغلاق">✕</button>
+        </div>
+        <div class="modal__body" id="mediaBody"></div>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      id="modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-label="تنبيه"
+    >
+      <div class="modal__backdrop" data-close></div>
+      <div class="modal__panel">
+        <div class="modal__head">
+          <h3 id="modalTitle">تنبيه</h3>
+          <button class="iconBtn" data-close aria-label="إغلاق">✕</button>
+        </div>
+        <div class="modal__body" id="modalBody"></div>
+        <div class="modal__actions" id="modalActions"></div>
+      </div>
+    </div>
+
+    <footer class="vipFooter" role="contentinfo">
+  <div class="container vipFooter__row">
+    <!-- Right: Logo + Name -->
+    <a class="vipFooter__brand" href="#top" aria-label="العودة للأعلى">
+      <span class="vipFooter__logo" aria-hidden="true"></span>
+      <span class="vipFooter__brandTxt">
+        <strong>  مؤسسة الفردوس للطباعة والتوزيع</strong>
+        <em>روح الكتب • إصدارات • معرفة</em>
+      </span>
+    </a>
+
+    <!-- Left: Copyright -->
+    <div class="vipFooter__copy">
+      <span>© <span id="yearNow"></span> جميع الحقوق محفوظة</span>
+      <span class="vipFooter__sep">•</span>
+      <a class="vipFooter__link" href="#contact">تواصل معنا</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("yearNow").textContent = new Date().getFullYear();
+</script>
+
+
+    <script src="app.js"></script>
+  </body>
+</html>

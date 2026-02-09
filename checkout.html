@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B0820" />
+    <title>إتمام الطلب</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      .receiptPreview{margin-top:12px;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;background:#0b0820}
+      .receiptPreview img{display:block;width:100%;height:auto}
+      .receiptBox{border:1px dashed rgba(255,215,0,.35);padding:12px;border-radius:16px;background:rgba(255,215,0,.06)}
+    </style>
+
+  </head>
+
+  <body>
+    <header class="header" id="top">
+      <div class="container header__row">
+        <a class="brand" href="school.html" aria-label="رجوع للأدوات المدرسية">
+          <span class="brand__logo" aria-hidden="true"></span>
+          <span class="brand__txt">
+            <strong>Checkout</strong>
+            <em>إتمام الطلب</em>
+          </span>
+        </a>
+
+        <div class="header__actions">
+          <a class="btn btn--ghost" href="school.html">← رجوع</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <div class="quoteLayout" style="grid-template-columns: 1.05fr 0.95fr">
+          <form class="card" id="checkoutForm">
+            <div class="card__head">
+              <h3>بيانات العميل</h3>
+              <p>املأ البيانات لإرسال الطلب واتساب بشكل احترافي.</p>
+            </div>
+
+            <div class="fields" style="grid-template-columns: 1fr">
+              <div class="field">
+                <label>الاسم *</label>
+                <input class="input" id="name" required placeholder="اسمك" />
+              </div>
+
+              <div class="field">
+                <label>الهاتف/واتساب *</label>
+                <input
+                  class="input"
+                  id="phone"
+                  required
+                  placeholder="01xxxxxxxxx"
+                />
+              </div>
+
+              <div class="field">
+                <label>العنوان *</label>
+                <input
+                  class="input"
+                  id="address"
+                  required
+                  placeholder="مثال: الإسكندرية…"
+                />
+              </div>
+
+              <div class="field">
+                <label>ملاحظات</label>
+                <input class="input" id="notes" placeholder="أي ملاحظات…" />
+              </div>
+
+              <div class="field">
+                <label>طريقة الاستلام</label>
+                <select class="select" id="delivery">
+                  <option value="delivery">توصيل</option>
+                  <option value="pickup">استلام من الفرع</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions" style="justify-content: flex-start">
+              <button class="btn btn--primary" type="submit">
+                🧾 إنشاء فاتورة صورة
+              </button>
+              <button class="btn btn--ghost" type="button" id="saveProfile">
+                💾 حفظ البيانات
+              </button>
+            </div>
+
+
+            <div id="receiptBox" class="receiptBox" style="display:none; margin-top:14px">
+              <div class="row" style="align-items:flex-start; gap:12px">
+                <div style="flex:1">
+                  <div class="muted small" style="margin-bottom:8px">
+                    ✅ تم إنشاء فاتورة كصورة (لا يمكن تعديل السعر من العميل).
+                    رقم الطلب: <strong id="orderNoView">—</strong>
+                  </div>
+                  <div class="actions" style="justify-content:flex-start; flex-wrap:wrap">
+                    <button class="btn btn--primary" type="button" id="btnShareWA">📤 مشاركة الصورة (واتساب)</button>
+                    <button class="btn btn--ghost" type="button" id="btnDownloadPNG">⬇️ تحميل الصورة</button>
+                    <button class="btn btn--ghost" type="button" id="btnOpenWA">🟢 فتح واتساب وكتابة رسالة قصيرة</button>
+                    <button class="btn btn--ghost" type="button" id="btnFinish">✅ تم الإرسال (تفريغ السلة)</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="receiptPreview">
+                <img id="receiptImg" alt="فاتورة الطلب" />
+              </div>
+
+              <p class="muted small" style="margin-top:10px; line-height:1.8">
+                على الهاتف: زر <strong>مشاركة الصورة</strong> يفتح قائمة المشاركة مباشرة لو جهازك يدعم ذلك.
+                على الكمبيوتر: استخدم <strong>تحميل الصورة</strong> ثم أرفقها داخل واتساب.
+              </p>
+            </div>
+
+            <p class="muted small" style="margin-top: 10px; line-height: 1.8">
+              * يتم إنشاء فاتورة كصورة (PNG) ثم يمكنك مشاركتها/تحميلها وإرسالها لرقم الإدارة على واتساب.
+              يمكنك تعديل الرقم داخل school.html.
+            </p>
+          </form>
+
+          <aside class="card">
+            <div class="card__head">
+              <h3>ملخص الطلب</h3>
+              <p>محتوى السلة + الإجمالي.</p>
+            </div>
+
+            <div
+              id="emptyHint"
+              class="muted"
+              style="display: none; font-weight: 900"
+            >
+              السلة فارغة — ارجع للأدوات المدرسية وأضف منتجات.
+            </div>
+
+            <div id="list" class="breakdown"></div>
+
+            <div class="row" style="margin-top: 12px">
+              <div class="k">الإجمالي</div>
+              <div class="v"><strong id="total">0</strong> جنيه</div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-top: 12px;
+              "
+            >
+              <a class="btn btn--ghost" href="school.html">إضافة منتجات</a>
+              <button class="btn btn--ghost" type="button" id="clearCart">
+                تفريغ السلة
+              </button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const SETTINGS = {
+        currency: "جنيه",
+        adminWhatsApp: "201000051078", // نفس الرقم
+        storeName: "مؤسسة الفردوس — الأدوات المدرسية",
+      };
+
+      let CART = JSON.parse(localStorage.getItem("school_cart") || "[]");
+
+      const list = document.getElementById("list");
+      const totalEl = document.getElementById("total");
+      const emptyHint = document.getElementById("emptyHint");
+
+      function cartTotal() {
+        return CART.reduce((a, b) => a + (b.qty || 0) * (b.price || 0), 0);
+      }
+
+      function render() {
+        if (!CART.length) {
+          emptyHint.style.display = "block";
+          list.innerHTML = "";
+          totalEl.textContent = "0";
+          return;
+        }
+        emptyHint.style.display = "none";
+
+        list.innerHTML = CART.map(
+          (it) => `
+          <div class="row">
+            <div class="k">${it.title} × ${it.qty}</div>
+            <div class="v">${(it.qty * it.price).toLocaleString("ar-EG")} ${SETTINGS.currency}</div>
+          </div>
+        `,
+        ).join("");
+
+        totalEl.textContent = cartTotal().toLocaleString("ar-EG");
+      }
+
+      function normalizePhone(phone) {
+        const digits = String(phone || "").replace(/\D/g, "");
+        if (digits.length < 8) return null;
+        // لو بدأ بـ 0 اعتبر مصر
+        if (digits.startsWith("0")) return "20" + digits.slice(1);
+        return digits;
+      }
+
+      function buildOrderText(profile) {
+        const lines = [];
+        lines.push(`🛒 طلب جديد — ${SETTINGS.storeName}`);
+        lines.push("—");
+        lines.push(`الاسم: ${profile.name}`);
+        lines.push(`الهاتف: ${profile.phone}`);
+        lines.push(`العنوان: ${profile.address}`);
+        lines.push(
+          `طريقة الاستلام: ${profile.delivery === "pickup" ? "استلام من الفرع" : "توصيل"}`,
+        );
+        if (profile.notes) lines.push(`ملاحظات: ${profile.notes}`);
+        lines.push("—");
+        lines.push("🧾 المنتجات:");
+        CART.forEach((it) => {
+          lines.push(
+            `• ${it.title} × ${it.qty} = ${(it.qty * it.price).toLocaleString("ar-EG")} ${SETTINGS.currency}`,
+          );
+        });
+        lines.push("—");
+        lines.push(
+          `الإجمالي: ${cartTotal().toLocaleString("ar-EG")} ${SETTINGS.currency}`,
+        );
+        lines.push("—");
+        lines.push("✅ برجاء تأكيد التوفر ووقت التسليم.");
+        return lines.join("\n");
+      }
+
+      // Prefill from saved profile
+      const saved = JSON.parse(localStorage.getItem("school_profile") || "{}");
+      document.getElementById("name").value = saved.name || "";
+      document.getElementById("phone").value = saved.phone || "";
+      document.getElementById("address").value = saved.address || "";
+
+      document.getElementById("saveProfile").addEventListener("click", () => {
+        const profile = {
+          name: document.getElementById("name").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          address: document.getElementById("address").value.trim(),
+        };
+        localStorage.setItem("school_profile", JSON.stringify(profile));
+        alert("تم حفظ البيانات ✅");
+      });
+
+      document.getElementById("clearCart").addEventListener("click", () => {
+        CART = [];
+        localStorage.setItem("school_cart", "[]");
+        render();
+      });
+
+      
+      // =======================
+      // Order Serial (Auto Increment)
+      // =======================
+      function nextOrderSeq() {
+        const key = "school_order_seq";
+        const n = Number(localStorage.getItem(key) || "0") + 1;
+        localStorage.setItem(key, String(n));
+        return n;
+      }
+      function orderNoLabel(n) {
+        return String(n).padStart(4, "0");
+      }
+
+      // =======================
+      // Receipt as Image (PNG)
+      // =======================
+      function drawReceiptToCanvas(order) {
+        const dpr = Math.max(1, window.devicePixelRatio || 1);
+        const W = 860; // logical px
+        const pad = 42;
+        const lineH = 34;
+
+        const lines = [];
+        lines.push({ t: SETTINGS.storeName, s: 34, w: 900 });
+        lines.push({ t: "فاتورة طلب", s: 26, w: 800 });
+        lines.push({ t: `رقم الطلب: ${order.orderNo}`, s: 22, w: 800 });
+        lines.push({ t: `التاريخ: ${order.date}`, s: 18, w: 600 });
+        lines.push({ t: "—", s: 18, w: 400 });
+
+        lines.push({ t: `الاسم: ${order.name}`, s: 20, w: 600 });
+        lines.push({ t: `الهاتف: ${order.phone}`, s: 20, w: 600 });
+        lines.push({ t: `العنوان: ${order.address}`, s: 20, w: 600 });
+        lines.push({
+          t: `طريقة الاستلام: ${order.delivery === "pickup" ? "استلام من الفرع" : "توصيل"}`,
+          s: 20,
+          w: 600,
+        });
+        if (order.notes) lines.push({ t: `ملاحظات: ${order.notes}`, s: 18, w: 600 });
+
+        lines.push({ t: "—", s: 18, w: 400 });
+        lines.push({ t: "المنتجات:", s: 22, w: 800 });
+
+        order.items.forEach((it) => {
+          const row = `• ${it.title} × ${it.qty} = ${(it.qty * it.price).toLocaleString("ar-EG")} ${SETTINGS.currency}`;
+          lines.push({ t: row, s: 20, w: 600 });
+        });
+
+        lines.push({ t: "—", s: 18, w: 400 });
+        lines.push({
+          t: `الإجمالي: ${order.total.toLocaleString("ar-EG")} ${SETTINGS.currency}`,
+          s: 26,
+          w: 900,
+        });
+        lines.push({ t: "✅ برجاء تأكيد التوفر ووقت التسليم.", s: 18, w: 600 });
+
+        // Height calculation (simple)
+        let H = pad * 2 + lines.length * lineH + 120;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(W * dpr);
+        canvas.height = Math.round(H * dpr);
+        canvas.style.width = W + "px";
+        canvas.style.height = H + "px";
+
+        const ctx = canvas.getContext("2d");
+        ctx.scale(dpr, dpr);
+
+        // Background
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, W, H);
+
+        // Header bar
+        ctx.fillStyle = "#0B0820";
+        ctx.fillRect(0, 0, W, 90);
+        ctx.fillStyle = "#FFD24A";
+        ctx.fillRect(0, 86, W, 4);
+
+        // Fonts
+        ctx.direction = "rtl";
+        ctx.textAlign = "right";
+        ctx.textBaseline = "top";
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "900 30px Cairo, system-ui, sans-serif";
+        ctx.fillText(SETTINGS.storeName, W - pad, 22);
+
+        // Body
+        let y = 110;
+        for (const ln of lines.slice(1)) {
+          if (ln.t === "—") {
+            ctx.strokeStyle = "rgba(11,8,32,.15)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(pad, y + 18);
+            ctx.lineTo(W - pad, y + 18);
+            ctx.stroke();
+            y += 18;
+            continue;
+          }
+
+          const weight = ln.w >= 800 ? "800" : ln.w >= 600 ? "600" : "400";
+          ctx.fillStyle = ln.w >= 800 ? "#0B0820" : "#1b1b1b";
+          ctx.font = `${weight} ${ln.s}px Cairo, system-ui, sans-serif`;
+          // Simple wrapping
+          const maxW = W - pad * 2;
+          const words = String(ln.t).split(" ");
+          let line = "";
+          for (let i = 0; i < words.length; i++) {
+            const test = (line ? line + " " : "") + words[i];
+            const m = ctx.measureText(test);
+            if (m.width > maxW && line) {
+              ctx.fillText(line, W - pad, y);
+              y += lineH;
+              line = words[i];
+            } else {
+              line = test;
+            }
+          }
+          if (line) {
+            ctx.fillText(line, W - pad, y);
+            y += lineH;
+          }
+        }
+
+        // Footer
+        ctx.fillStyle = "rgba(11,8,32,.06)";
+        ctx.fillRect(0, H - 70, W, 70);
+        ctx.fillStyle = "#0B0820";
+        ctx.font = "700 16px Cairo, system-ui, sans-serif";
+        ctx.fillText("هذه الفاتورة صادرة من موقع مؤسسة الفردوس — أدوات مدرسية", W - pad, H - 48);
+
+        return canvas;
+      }
+
+      function canvasToBlob(canvas) {
+        return new Promise((resolve) => {
+          canvas.toBlob((b) => resolve(b), "image/png", 1.0);
+        });
+      }
+
+      let CURRENT_ORDER = null;
+      let CURRENT_BLOB = null;
+      let CURRENT_URL = null;
+
+      function showReceiptUI(orderNo) {
+        document.getElementById("orderNoView").textContent = orderNo;
+        document.getElementById("receiptBox").style.display = "block";
+        document.getElementById("receiptBox").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      async function makeReceipt(order) {
+        const canvas = drawReceiptToCanvas(order);
+        const blob = await canvasToBlob(canvas);
+        const url = URL.createObjectURL(blob);
+        CURRENT_ORDER = order;
+        CURRENT_BLOB = blob;
+        CURRENT_URL = url;
+        document.getElementById("receiptImg").src = url;
+        showReceiptUI(order.orderNo);
+      }
+
+      function downloadReceipt() {
+        if (!CURRENT_BLOB) return alert("لا توجد فاتورة بعد.");
+        const a = document.createElement("a");
+        a.href = CURRENT_URL;
+        a.download = `order-${CURRENT_ORDER.orderNo}.png`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+
+      async function shareReceiptToWhatsApp() {
+        if (!CURRENT_BLOB) return alert("لا توجد فاتورة بعد.");
+        const file = new File([CURRENT_BLOB], `order-${CURRENT_ORDER.orderNo}.png`, { type: "image/png" });
+
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: `طلب رقم ${CURRENT_ORDER.orderNo}`,
+              text: `طلب جديد — رقم ${CURRENT_ORDER.orderNo}`,
+            });
+            return;
+          } catch (e) {
+            // fallthrough to download + WA
+          }
+        }
+
+        // Fallback
+        downloadReceipt();
+        openWhatsAppShortText();
+      }
+
+      function openWhatsAppShortText() {
+        if (!CURRENT_ORDER) return alert("لا توجد بيانات طلب بعد.");
+        const admin = SETTINGS.adminWhatsApp;
+
+        const shortLines = [];
+        shortLines.push(`🧾 طلب جديد — ${SETTINGS.storeName}`);
+        shortLines.push(`رقم الطلب: ${CURRENT_ORDER.orderNo}`);
+        shortLines.push(`الاسم: ${CURRENT_ORDER.name}`);
+        shortLines.push(`الهاتف: ${CURRENT_ORDER.phone}`);
+        shortLines.push(`طريقة الاستلام: ${CURRENT_ORDER.delivery === "pickup" ? "استلام من الفرع" : "توصيل"}`);
+        shortLines.push("—");
+        shortLines.push("📌 *أرفقت فاتورة صورة للطلب* (من فضلك أرسل الصورة).");
+
+        const msg = encodeURIComponent(shortLines.join("\n"));
+        const url = `https://wa.me/${admin}?text=${msg}`;
+        window.open(url, "_blank", "noopener");
+      }
+
+      function finishAndClear() {
+        if (!CURRENT_ORDER) return alert("اعمل إنشاء فاتورة أولاً.");
+        CART = [];
+        localStorage.setItem("school_cart", "[]");
+        render();
+        alert("تم تفريغ السلة ✅");
+      }
+
+      document.getElementById("btnDownloadPNG").addEventListener("click", downloadReceipt);
+      document.getElementById("btnOpenWA").addEventListener("click", openWhatsAppShortText);
+      document.getElementById("btnShareWA").addEventListener("click", shareReceiptToWhatsApp);
+      document.getElementById("btnFinish").addEventListener("click", finishAndClear);
+
+      // =======================
+      // Submit: Create Receipt Image (No editable text)
+      // =======================
+      document
+        .getElementById("checkoutForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          if (!CART.length) {
+            alert("السلة فارغة.");
+            return;
+          }
+
+          const name = document.getElementById("name").value.trim();
+          const phone = document.getElementById("phone").value.trim();
+          const address = document.getElementById("address").value.trim();
+          const notes = document.getElementById("notes").value.trim();
+          const delivery = document.getElementById("delivery").value;
+
+          if (name.length < 2) return alert("اكتب الاسم بشكل صحيح.");
+          if (phone.length < 8) return alert("اكتب رقم هاتف صحيح.");
+          if (address.length < 3) return alert("اكتب العنوان.");
+
+          // save profile
+          localStorage.setItem("school_profile", JSON.stringify({ name, phone, address }));
+
+          const seq = nextOrderSeq();
+          const orderNo = orderNoLabel(seq);
+          const dt = new Date();
+          const dateStr = dt.toLocaleString("ar-EG");
+
+          const order = {
+            orderNo,
+            date: dateStr,
+            name,
+            phone,
+            address,
+            notes,
+            delivery,
+            items: CART.map((x) => ({ title: x.title, qty: x.qty, price: x.price })),
+            total: cartTotal(),
+          };
+
+          await makeReceipt(order);
+
+          // Optional: open WA with short text immediately (you still attach the image manually on desktop)
+          // openWhatsAppShortText();
+        });
+
+
+      render();
+    </script>
+  </body>
+</html>

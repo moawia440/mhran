@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0B0820" />
+    <title>تسعير الطباعة — مؤسسة الفردوس</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="pricing.css" />
+  </head>
+
+  <body id="pricing.html">
+    <!-- Header -->
+    <header class="header" id="top">
+      <div class="container header__row">
+        <a class="brand" href="index.html#top" aria-label="العودة للرئيسية">
+          <span class="brand__logo" aria-hidden="true"></span>
+          <span class="brand__txt">
+            <strong>مؤسسة الفردوس</strong>
+            <em>للطباعة والتوزيع</em>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="القائمة">
+          <a href="index.html#releases">الإصدارات</a>
+          <a href="index.html#videos">فيديو</a>
+          <a href="index.html#contact">تواصل</a>
+          <a href="school.html">الأدوات المدرسية</a>
+          <a href="pricing.html" aria-current="page">تسعير</a>
+        </nav>
+
+        <div class="header__actions">
+          <button class="iconBtn hamb" id="hambBtn" aria-label="القائمة">
+            ☰
+          </button>
+
+          <!-- ✅ زر واحد فقط للإدارة -->
+          <button
+            class="btn btn--ghost pricingAdminBtn"
+            id="adminToggle"
+            type="button"
+          >
+            🧑‍💼 وضع الإدارة
+          </button>
+
+          <!-- ✅ زر العميل (يظهر فقط بعد تفعيل الإدارة) -->
+          <button
+            class="btn btn--ghost pricingAdminBtn is-hidden"
+            id="clientToggle"
+            type="button"
+          >
+            👤 وضع العميل
+          </button>
+        </div>
+      </div>
+
+      <div class="container mobileNav is-hidden" id="mobileNav">
+        <a href="index.html#releases">الإصدارات</a>
+        <a href="index.html#videos">فيديو</a>
+        <a href="index.html#contact">تواصل</a>
+        <a href="school.html">الأدوات المدرسية</a>
+        <a href="pricing.html">تسعير</a>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+        <!-- HERO -->
+        <div class="pricingHero">
+          <div class="pricingHero__txt">
+            <h1>تسعير الطباعة</h1>
+            <p class="muted">
+              احسب تقدير سريع ومرتب. السعر النهائي يتم تأكيده من الإدارة — ويتم
+              إرسال الطلب لصاحب المطبعة مباشرة.
+            </p>
+          </div>
+
+          <div class="pricingHero__meta">
+            <div class="metaPill">
+              <span class="muted">آخر تحديث للأسعار</span>
+              <!-- ✅ ID مختلف عن البورصة -->
+              <strong id="heroLastUpdated">—</strong>
+            </div>
+            <div class="metaPill">
+              <span class="muted">وضع</span>
+              <strong id="modeText">عميل</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricingLayout">
+          <!-- LEFT: FORM -->
+          <section class="pricingCard" aria-label="حاسبة التسعير">
+            <div class="pricingCard__head">
+              <h2>المواصفات</h2>
+              <p class="muted">
+                وفرنا ليك تسعيرة اون لاين بكل سهولة جرب وأطلب الآن.
+              </p>
+            </div>
+
+            <!-- Stepper -->
+            <div class="stepper" aria-label="خطوات التسعير">
+              <button class="step is-active" type="button" data-step="1">
+                بيانات العميل
+              </button>
+              <button class="step" type="button" data-step="2">
+                مواصفات الطباعة
+              </button>
+              <button class="step" type="button" data-step="3">النتيجة</button>
+            </div>
+
+            <form id="quoteForm" class="quoteForm" novalidate>
+              <!-- STEP 1 -->
+              <div class="stepPanel is-active" data-step-panel="1">
+                <div class="grid2">
+                  <div class="field">
+                    <label>الاسم *</label>
+                    <input
+                      class="input"
+                      name="clientName"
+                      required
+                      placeholder="اسم العميل"
+                    />
+                  </div>
+                  <div class="field">
+                    <label>هاتف/واتساب *</label>
+                    <input
+                      class="input"
+                      name="clientPhone"
+                      required
+                      placeholder="01xxxxxxxxx"
+                    />
+                  </div>
+                  <div class="field">
+                    <label>البريد</label>
+                    <input
+                      class="input"
+                      name="clientEmail"
+                      type="email"
+                      placeholder="name@example.com"
+                    />
+                  </div>
+                  <div class="field">
+                    <label>المدينة</label>
+                    <input
+                      class="input"
+                      name="clientCity"
+                      placeholder="مثال: الإسكندرية"
+                    />
+                  </div>
+                </div>
+
+                <div class="panelActions">
+                  <span class="muted small"> </span>
+                  <button class="btn btn--primary" type="button" data-next>
+                    التالي
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="stepPanel" data-step-panel="2">
+                <div class="grid2">
+                  <div class="field">
+                    <label>عدد النسخ *</label>
+                    <input
+                      class="input"
+                      name="qty"
+                      type="number"
+                      min="1"
+                      step="1"
+                      value="1000"
+                      required
+                    />
+                  </div>
+                  <div class="field">
+                    <label>صفحات المتن *</label>
+                    <input
+                      class="input"
+                      name="insidePages"
+                      type="number"
+                      min="1"
+                      step="1"
+                      value="80"
+                      required
+                    />
+                  </div>
+
+                  <div class="field">
+                    <label>المقاس *</label>
+                    <select class="select" name="size" required>
+                      <option value="A5">A5</option>
+                      <option value="14x21">14×21</option>
+                      <option value="B5">B5</option>
+                      <option value="17x24">17×24</option>
+                      <option value="A4">A4</option>
+                      <option value="custom">مقاس خاص</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label>مقاس خاص</label>
+                    <input
+                      class="input"
+                      name="customSize"
+                      placeholder="مثال: 16×23"
+                    />
+                  </div>
+
+                  <div class="field">
+                    <label>ألوان المتن *</label>
+                    <select class="select" name="insideColors" required>
+                      <option value="bw_duplex">أسود (وجهين)</option>
+                      <option value="bw_single">أسود (وجه)</option>
+                      <option value="cmyk">ألوان CMYK</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label>ورق المتن *</label>
+                    <select class="select" name="insidePaper" required>
+                      <option value="offset_80">أوفست 80</option>
+                      <option value="offset_70">أوفست 70</option>
+                      <option value="cream_80">كريمي 80</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label>ورق الغلاف *</label>
+                    <select class="select" name="coverPaper" required>
+                      <option value="coated_250">كوشيه 250</option>
+                      <option value="coated_300">كوشيه 300</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label>ألوان الغلاف *</label>
+                    <select class="select" name="coverColors" required>
+                      <option value="cover_color">ألوان CMYK</option>
+                      <option value="cover_bw">أسود وجه</option>
+                      <option value="cover_bw">اسود وجهين</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label>سلوفان</label>
+                    <select class="select" name="lamination">
+                      <option value="none">بدون</option>
+                      <option value="matte">مط</option>
+                      <option value="gloss">لامع</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label>التجليد *</label>
+                    <select class="select" name="binding" required>
+                      <option value="perfect">حراري</option>
+                      <option value="staple">دبوس</option>
+                      <option value="hardcover">فني</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label>بروفة/تصحيح</label>
+                    <select class="select" name="proof">
+                      <option value="no">لا</option>
+                      <option value="yes">نعم</option>
+                    </select>
+                  </div>
+
+                  <!-- ✅ تم إصلاح الحقل (كان فيه < غلط) -->
+                  <div class="field">
+                    <label>شحن / نقل؟</label>
+                    <select class="select" name="shipping" id="shippingSelect">
+                      <option value="no">لا</option>
+                      <option value="yes">نعم</option>
+                    </select>
+                  </div>
+
+                  <!-- عنوان الشحن (مخفي افتراضياً) -->
+                  <div class="field is-hidden" id="shipAddressField">
+                    <label>عنوان الشحن *</label>
+                    <input
+                      class="input"
+                      name="shipAddress"
+                      id="shipAddress"
+                      placeholder="اكتب العنوان بالتفصيل: شارع / منطقة / رقم عمارة..."
+                    />
+                  </div>
+
+                  <div class="field" style="grid-column: 1 / -1">
+                    <label>ملاحظات</label>
+                    <input
+                      class="input"
+                      name="notes"
+                      placeholder="تفاصيل إضافية…"
+                    />
+                  </div>
+                </div>
+
+                <div class="aiGuard" id="aiGuard" aria-live="polite"></div>
+
+                <div class="panelActions">
+                  <button class="btn btn--ghost" type="button" data-prev>
+                    رجوع
+                  </button>
+                  <button class="btn btn--primary" type="button" id="calcBtn">
+                    احسب الآن
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 3 -->
+              <div class="stepPanel" data-step-panel="3">
+                <div class="resultGrid">
+                  <div class="resultCard">
+                    <div class="muted">التكلفة التقديرية</div>
+                    <div class="big" id="costValue">—</div>
+                  </div>
+
+                  <div class="resultCard">
+                    <div class="muted">سعر النسخة (تقديري)</div>
+                    <div class="big" id="unitCostValue">—</div>
+                  </div>
+
+                  <div class="resultCard highlight">
+                    <div class="muted">السعر للعميل</div>
+                    <div class="big" id="clientTotal">—</div>
+                    <div class="muted small">
+                      السعر النهائي قد يتغير بعد مراجعة الإدارة.
+                    </div>
+                  </div>
+
+                  <div class="resultCard">
+                    <div class="muted">تفاصيل</div>
+                    <div class="breakdown" id="breakdown"></div>
+                  </div>
+                </div>
+
+                <div class="resultActions">
+                  <button class="btn btn--ghost" type="button" data-prev>
+                    رجوع
+                  </button>
+                  <button
+                    class="btn btn--primary"
+                    type="button"
+                    id="sendToPrintHouse"
+                  >
+                    📲 إرسال لصاحب المطبعة (واتساب)
+                  </button>
+                  <button
+                    class="btn btn--ghost"
+                    type="button"
+                    id="copyClientText"
+                  >
+                    نسخ العرض للعميل
+                  </button>
+                </div>
+
+                <!-- ✅ لوحة الإدارة داخل النتائج (إدارة فقط) -->
+                <div class="adminOnly is-hidden" id="adminPanelBox">
+                  <hr class="hr" />
+                  <div class="adminRow">
+                    <div>
+                      <strong>لوحة الإدارة</strong>
+                      <div class="muted small">
+                        تغيير الأسعار ينعكس فورًا على التسعير.
+                      </div>
+                    </div>
+                    <button
+                      class="btn btn--ghost"
+                      type="button"
+                      id="resetPricesBtn"
+                    >
+                      إعادة أسعار المصنع
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <!-- RIGHT: MARKET BOARD (ADMIN ONLY) -->
+          <section
+            class="ratesBoard is-hidden"
+            id="ratesBoard"
+            aria-hidden="true"
+          >
+            <aside
+              class="pricingCard marketBoardWrap"
+              aria-label="بورصة الأسعار"
+            >
+              <div class="pricingCard__head">
+                <h2>بورصة الأسعار</h2>
+                <p class="muted">هذه اللوحة لا تظهر إلا في وضع الإدارة.</p>
+
+                <div class="ratesMeta">
+                  <span class="muted small">آخر تحديث:</span>
+                  <strong class="small" id="boardLastUpdated">—</strong>
+                </div>
+              </div>
+
+              <div class="marketBoard" id="marketBoard"></div>
+            </aside>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script src="pricing.js"></script>
+
+    <script>
+      // Mobile menu
+      const hambBtn = document.getElementById("hambBtn");
+      const mobileNav = document.getElementById("mobileNav");
+      if (hambBtn && mobileNav) {
+        hambBtn.addEventListener("click", () =>
+          mobileNav.classList.toggle("is-hidden"),
+        );
+      }
+    </script>
+
+    <script>
+      // Shipping address toggle
+      (function () {
+        const shippingSelect = document.getElementById("shippingSelect");
+        const shipField = document.getElementById("shipAddressField");
+        const shipInput = document.getElementById("shipAddress");
+        if (!shippingSelect || !shipField) return;
+
+        function toggleShippingAddress() {
+          const show = shippingSelect.value === "yes";
+          shipField.classList.toggle("is-hidden", !show);
+          if (shipInput) {
+            shipInput.required = show;
+            if (!show) shipInput.value = "";
+          }
+        }
+
+        toggleShippingAddress();
+        shippingSelect.addEventListener("change", toggleShippingAddress);
+      })();
+    </script>
+  </body>
+</html>
